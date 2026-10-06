@@ -875,6 +875,17 @@ impl QuadGl {
         self.state.viewport
     }
 
+    /// Current scissor rectangle, or `None` when clipping is disabled.
+    pub fn get_scissor(&self) -> Option<(i32, i32, i32, i32)> {
+        self.state.clip
+    }
+
+    /// The model matrix on top of the stack — what a draw would be transformed
+    /// by right now. Effects that compute screen positions themselves need it.
+    pub fn get_model_matrix(&self) -> glam::Mat4 {
+        self.state.model()
+    }
+
     pub fn push_model_matrix(&mut self, matrix: glam::Mat4) {
         self.state.model_stack.push(self.state.model() * matrix);
     }
